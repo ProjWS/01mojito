@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<script>document.documentElement.className+=' js';</script>
+<noscript><style>.search-row{display:none}</style></noscript>
+<title>Mojito · Cocktail Bar Cagliari</title>
+<meta name="description" content="Mojito Cocktail Bar a Cagliari — cocktail bar in stile speakeasy nel cuore della città. Oltre 100 tra cocktail, mojito, gin e distillati selezionati.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0c110e;
+  --bg-2:#0f1613;
+  --panel:#141d18;
+  --panel-2:#182420;
+  --line:#26332c;
+  --green:#2f5d43;
+  --green-soft:#3f7d5c;
+  --mint:#8fc9a6;
+  --gold:#c9a24b;
+  --gold-soft:#e0c179;
+  --copper:#c07a45;
+  --text:#eae7dd;
+  --muted:#9aa79d;
+  --muted-2:#6f7d73;
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Poppins',system-ui,-apple-system,sans-serif;
+  --maxw:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--sans);
+  font-weight:300;
+  line-height:1.65;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.serif{font-family:var(--serif)}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+::selection{background:var(--green-soft);color:#fff}
+
+/* ---------- background texture ---------- */
+body::before{
+  content:"";position:fixed;inset:0;z-index:-2;
+  background:
+    radial-gradient(1200px 700px at 80% -10%, rgba(47,93,67,.22), transparent 60%),
+    radial-gradient(900px 600px at -10% 110%, rgba(201,162,75,.10), transparent 60%),
+    var(--bg);
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.035;
+  background-image:radial-gradient(rgba(255,255,255,.6) 1px, transparent 1px);
+  background-size:3px 3px;
+}
+
+/* ---------- helpers ---------- */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,48px)}
+.eyebrow{
+  font-family:var(--sans);font-weight:500;font-size:.72rem;letter-spacing:.34em;
+  text-transform:uppercase;color:var(--gold);display:inline-block;margin-bottom:1rem;
+}
+.section{padding:clamp(70px,10vw,130px) 0;position:relative}
+.section-title{
+  font-size:clamp(2.1rem,5.5vw,3.6rem);font-weight:500;line-height:1.05;
+  letter-spacing:.01em;margin-bottom:1.1rem;
+}
+.section-title em{font-style:italic;color:var(--mint)}
+.lead{color:var(--muted);font-size:1.05rem;max-width:60ch}
+.divider{width:60px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin:1.4rem 0}
+
+/* Progressive enhancement: contenuto sempre visibile; l'animazione parte solo con JS attivo */
+.reveal{transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.js .reveal{opacity:0;transform:translateY(26px)}
+.js .reveal.in{opacity:1;transform:none}
+
+/* ---------- nav ---------- */
+header.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  transition:background .4s ease,border-color .4s,backdrop-filter .4s;
+  border-bottom:1px solid transparent;
+}
+header.nav.scrolled{
+  background:rgba(10,15,12,.82);
+  backdrop-filter:blur(14px) saturate(1.2);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:74px}
+.brand{display:flex;align-items:center;gap:.7rem;font-family:var(--serif);font-size:1.5rem;letter-spacing:.02em}
+.brand .logo-img{height:34px;width:auto;filter:invert(1);mix-blend-mode:screen}
+.brand small{font-family:var(--sans);font-weight:400;font-size:.55rem;letter-spacing:.32em;
+  text-transform:uppercase;color:var(--muted);display:block;margin-top:2px}
+.nav-links{display:flex;align-items:center;gap:2.1rem}
+.nav-links a{font-size:.82rem;letter-spacing:.06em;color:var(--muted);transition:color .25s;position:relative}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--gold);transition:width .3s}
+.nav-links a:hover{color:var(--text)}
+.nav-links a:hover::after{width:100%}
+.lang-toggle{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.lang-toggle button{
+  background:transparent;border:0;color:var(--muted);font-family:var(--sans);font-size:.72rem;
+  font-weight:500;letter-spacing:.08em;padding:.42rem .7rem;cursor:pointer;transition:.25s;
+}
+.lang-toggle button.active{background:var(--green);color:#fff}
+.nav-toggle{position:absolute;opacity:0;pointer-events:none;width:0;height:0}
+.nav-scrim{display:none}
+.burger{display:none;background:none;border:0;cursor:pointer;flex-direction:column;gap:5px;padding:10px;margin:-10px}
+.burger span{display:block;width:24px;height:2px;background:var(--text);transition:.3s;border-radius:2px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);animation:heroZoom 20s ease-out forwards;filter:saturate(.9) brightness(.62)}
+@keyframes heroZoom{to{transform:scale(1)}}
+.hero-bg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(8,12,10,.55) 0%,rgba(8,12,10,.35) 40%,rgba(8,12,10,.92) 100%),
+             linear-gradient(90deg,rgba(8,12,10,.7),transparent 60%)}
+.hero-content{position:relative;z-index:2;padding-top:80px}
+.hero h1{font-size:clamp(3.3rem,12vw,8rem);font-weight:500;line-height:.92;letter-spacing:.01em}
+.hero h1 .script{font-style:italic;color:var(--mint);display:block;font-size:.42em;letter-spacing:.04em;margin-bottom:.2em;color:var(--gold-soft)}
+.hero p.tag{max-width:46ch;color:#d7d3c8;font-size:1.15rem;margin-top:1.6rem;font-weight:300}
+.hero-actions{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2.4rem}
+.hero-meta{display:flex;flex-wrap:wrap;gap:1.6rem;margin-top:3rem;color:var(--muted);font-size:.82rem;letter-spacing:.05em}
+.hero-meta span{display:inline-flex;align-items:center;gap:.5rem}
+.hero-meta b{color:var(--text);font-weight:500}
+.scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;color:var(--muted);
+  font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:.6rem}
+.scroll-hint i{width:1px;height:38px;background:linear-gradient(var(--gold),transparent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:.6rem;font-family:var(--sans);font-weight:500;
+  font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;padding:.95rem 1.8rem;
+  border-radius:999px;cursor:pointer;transition:.3s;border:1px solid transparent;
+}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:hover{background:var(--green-soft);transform:translateY(-2px)}
+.btn-ghost{border-color:var(--line);color:var(--text)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold-soft)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--copper));color:#1a130a}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 30px -12px rgba(201,162,75,.6)}
+
+/* ---------- about ---------- */
+.about-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,6vw,80px);align-items:center}
+.about-photos{position:relative}
+.about-photos .p-main{border-radius:6px;box-shadow:0 40px 80px -30px rgba(0,0,0,.8);border:1px solid var(--line);aspect-ratio:4/5;object-fit:cover;width:100%}
+.about-photos .p-float{position:absolute;width:46%;right:-6%;bottom:-9%;border-radius:6px;border:3px solid var(--bg-2);
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.85);aspect-ratio:3/4;object-fit:cover}
+.about-photos .badge{position:absolute;top:-20px;left:-16px;background:var(--panel);border:1px solid var(--line);
+  border-radius:50%;width:120px;height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;font-family:var(--serif);color:var(--gold-soft);box-shadow:0 20px 40px -18px rgba(0,0,0,.8)}
+.badge b{font-size:1.9rem;line-height:1}
+.badge small{font-family:var(--sans);font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.features{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;margin-top:2.4rem}
+.feature{border:1px solid var(--line);border-radius:6px;padding:1.2rem 1.3rem;background:rgba(20,29,24,.5);transition:.3s}
+.feature:hover{border-color:var(--green-soft);transform:translateY(-3px)}
+.feature h4{font-family:var(--sans);font-weight:500;font-size:.92rem;margin-bottom:.3rem;color:var(--text)}
+.feature p{font-size:.82rem;color:var(--muted);line-height:1.5}
+.feature .ic{color:var(--gold);font-size:1.3rem;margin-bottom:.6rem;display:block}
+
+/* ---------- menu ---------- */
+#menu{background:linear-gradient(180deg,var(--bg),var(--bg-2))}
+.menu-head{text-align:center;margin-bottom:2.4rem}
+.menu-head .lead{margin:0 auto}
+.menu-tools{position:sticky;top:74px;z-index:40;background:rgba(11,16,13,.9);backdrop-filter:blur(12px);
+  padding:1rem 0;margin-bottom:2rem;border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:.55rem;overflow-x:auto;padding-bottom:.4rem;scrollbar-width:thin}
+.tabs::-webkit-scrollbar{height:5px}
+.tabs::-webkit-scrollbar-thumb{background:var(--line);border-radius:9px}
+.tab{display:inline-flex;align-items:center;text-decoration:none;white-space:nowrap;font-size:.78rem;letter-spacing:.05em;padding:.55rem 1.1rem;border-radius:999px;
+  border:1px solid var(--line);color:var(--muted);background:transparent;cursor:pointer;transition:.25s;font-family:var(--sans);font-weight:400}
+.tab:hover{color:var(--text);border-color:var(--green-soft)}
+.tab.active{background:var(--green);color:#fff;border-color:var(--green)}
+.search-row{display:flex;justify-content:center;margin-top:.9rem}
+.search-box{display:flex;align-items:center;gap:.6rem;border:1px solid var(--line);border-radius:999px;
+  padding:.55rem 1.1rem;background:var(--panel);width:min(420px,100%)}
+.search-box input{background:none;border:0;outline:none;color:var(--text);font-family:var(--sans);font-size:.88rem;width:100%}
+.search-box input::placeholder{color:var(--muted-2)}
+.search-box .ic{color:var(--muted)}
+
+.menu-cat{margin-bottom:3.2rem;scroll-margin-top:150px}
+.menu-cat-head{display:flex;align-items:baseline;gap:1rem;margin-bottom:1.4rem}
+.menu-cat-head h3{font-size:2rem;font-weight:500;color:var(--gold-soft)}
+.menu-cat-head .line{flex:1;height:1px;background:var(--line)}
+.menu-cat-note{font-size:.82rem;color:var(--muted);margin:-.6rem 0 1.4rem}
+.menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.4rem 3rem}
+.menu-item{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.85rem 0;border-bottom:1px dashed var(--line);transition:.25s}
+.menu-item:hover{border-color:var(--green-soft)}
+.menu-item:hover .mi-name{color:var(--mint)}
+.mi-left{min-width:0}
+.mi-name{font-family:var(--serif);font-size:1.28rem;font-weight:500;letter-spacing:.01em;transition:.25s}
+.mi-ing{font-size:.78rem;color:var(--muted);line-height:1.45;margin-top:.15rem}
+.mi-price{font-family:var(--serif);font-size:1.25rem;color:var(--gold);white-space:nowrap;font-weight:500}
+.mi-price::before{content:"€ "}
+.sizes{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.3rem}
+.size-chip{border:1px solid var(--line);border-radius:8px;padding:.5rem .9rem;font-size:.8rem;color:var(--muted);background:var(--panel)}
+.size-chip b{color:var(--gold-soft);font-family:var(--serif);font-size:1.05rem;margin-left:.3rem}
+.no-res{text-align:center;color:var(--muted);padding:3rem;font-style:italic;font-family:var(--serif);font-size:1.3rem}
+.menu-note-foot{text-align:center;color:var(--muted-2);font-size:.78rem;margin-top:1.5rem}
+
+/* ---------- contact ---------- */
+#contact{background:var(--bg-2)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(30px,5vw,64px);align-items:stretch}
+.contact-card{border:1px solid var(--line);border-radius:8px;padding:clamp(1.6rem,4vw,2.6rem);background:var(--panel);height:100%}
+.info-row{display:flex;gap:1rem;padding:1.1rem 0;border-bottom:1px solid var(--line)}
+.info-row:last-child{border-bottom:0}
+.info-row .ic{color:var(--gold);font-size:1.15rem;margin-top:2px;flex-shrink:0;width:24px;text-align:center}
+.info-row h4{font-family:var(--sans);font-weight:500;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.25rem}
+.info-row p,.info-row a{font-size:1rem;color:var(--text)}
+.info-row a:hover{color:var(--gold-soft)}
+.socials{display:flex;gap:.8rem;margin-top:1.8rem}
+.socials a{width:44px;height:44px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;
+  color:var(--muted);transition:.3s}
+.socials a:hover{border-color:var(--gold);color:var(--gold-soft);transform:translateY(-3px)}
+.socials svg{width:20px;height:20px;fill:currentColor}
+.map-wrap{border-radius:8px;overflow:hidden;border:1px solid var(--line);min-height:420px;position:relative}
+.map-wrap iframe{width:100%;height:100%;min-height:420px;border:0;filter:grayscale(.4) invert(.92) hue-rotate(150deg) saturate(.7) contrast(.95)}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:3rem 0 2.2rem;text-align:center}
+footer .brand{justify-content:center;margin-bottom:1rem}
+.foot-links{display:flex;gap:1.6rem;justify-content:center;flex-wrap:wrap;margin:1.2rem 0;font-size:.82rem;color:var(--muted)}
+.foot-links a:hover{color:var(--gold-soft)}
+.foot-note{font-size:.72rem;color:var(--muted-2);margin-top:1rem;line-height:1.7}
+.foot-note a{color:var(--muted);text-decoration:underline}
+
+/* ---------- mobile ---------- */
+@media(max-width:900px){
+  .about-grid,.contact-grid{grid-template-columns:1fr}
+  .about-photos{max-width:420px;margin:0 auto 3rem}
+  .map-wrap{min-height:340px}
+  .menu-grid{grid-template-columns:1fr;gap:0}
+}
+@media(max-width:720px){
+  .nav-inner{height:64px}
+  .menu-tools{top:64px}
+  .burger{display:flex}
+  /* Drawer controllato dal checkbox: funziona anche SENZA JavaScript */
+  .nav-links{position:fixed;inset:0 0 0 auto;width:min(82vw,320px);flex-direction:column;justify-content:center;
+    gap:2rem;background:var(--panel);border-left:1px solid var(--line);transform:translateX(100%);
+    transition:transform .38s cubic-bezier(.4,0,.2,1);padding:2rem;z-index:120}
+  .nav-links a{font-size:1.1rem}
+  #navToggle:checked ~ .nav-links{transform:none}
+  #navToggle:checked ~ .nav-scrim{display:block;position:fixed;inset:0;background:rgba(5,8,6,.6);z-index:110}
+  #navToggle:checked ~ .burger{position:fixed;right:clamp(20px,5vw,48px);top:20px;z-index:130}
+  #navToggle:checked ~ .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  #navToggle:checked ~ .burger span:nth-child(2){opacity:0}
+  #navToggle:checked ~ .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .features{grid-template-columns:1fr}
+  .hero-meta{gap:1rem}
+  /* Menù drink: più aria e leggibilità su telefono */
+  .menu-cat-head h3{font-size:1.6rem}
+  .mi-name{font-size:1.15rem}
+  .mi-price{font-size:1.1rem}
+  .menu-item{padding:.7rem 0}
+  .menu-cat{scroll-margin-top:130px}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#home" class="brand">
+      <img src="logo.jpeg" alt="Mojito" class="logo-img">
+      <span>Mojito<small>Cocktail Bar · Cagliari</small></span>
+    </a>
+    <input type="checkbox" id="navToggle" class="nav-toggle" aria-hidden="true">
+    <nav class="nav-links" id="navLinks">
+      <a href="#about" data-i18n="nav_about">Il Locale</a>
+      <a href="#menu" data-i18n="nav_menu">Menù</a>
+      <a href="#contact" data-i18n="nav_contact">Contatti</a>
+      <div class="lang-toggle" role="group" aria-label="Lingua">
+        <button data-lang="it" class="active">IT</button>
+        <button data-lang="en">EN</button>
+      </div>
+    </nav>
+    <label for="navToggle" class="nav-scrim" aria-hidden="true"></label>
+    <label for="navToggle" class="burger" aria-label="Apri o chiudi il menu"><span></span><span></span><span></span></label>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <img src="hero.jpg" alt="Interno del Mojito Cocktail Bar">
+  </div>
+  <div class="wrap hero-content">
+    <h1><span class="script" data-i18n="hero_pre">Cocktail Bar · Cagliari</span>Mojito</h1>
+    <p class="tag" data-i18n="hero_tag">Un rifugio scuro e intimo nel cuore di Cagliari, dove ogni distillato racconta una storia e ogni mojito è un rituale.</p>
+    <div class="hero-actions">
+      <a href="#menu" class="btn btn-gold" data-i18n="hero_cta_menu">Scopri il Menù</a>
+      <a href="#contact" class="btn btn-ghost" data-i18n="hero_cta_book">Dove Siamo</a>
+    </div>
+    <div class="hero-meta">
+      <span>📍 <b>Salita di Santa Chiara 25</b></span>
+      <span>🕑 <b data-i18n="hero_hours">Ogni sera dalle 18:30</b></span>
+      <span>🍸 <b data-i18n="hero_drinks">100+ cocktail</b></span>
+    </div>
+  </div>
+  <div class="scroll-hint"><span data-i18n="scroll">Scorri</span><i></i></div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="section" id="about">
+  <div class="wrap about-grid">
+    <div class="about-photos reveal">
+      <img class="p-main" src="lounge.jpg" alt="Salotto del Mojito con tende verdi">
+      <img class="p-float" src="bar.jpg" alt="Bancone e distillati del Mojito">
+      <div class="badge"><b>100<span style="font-size:1rem">+</span></b><small data-i18n="badge">Cocktail</small></div>
+    </div>
+    <div class="about-text reveal">
+      <span class="eyebrow" data-i18n="about_eyebrow">Il Locale</span>
+      <h2 class="section-title" data-i18n="about_title">Dove la notte<br><em>si fa rituale</em></h2>
+      <div class="divider"></div>
+      <p class="lead" data-i18n="about_p1">Il Mojito è un cocktail bar in stile speakeasy nel centro storico di Cagliari, a due passi da Piazza Yenne. Pareti in pietra, luci basse, tende di velluto verde e poltrone in pelle: un'atmosfera raccolta pensata per chi cerca un buon bere lontano dalla folla.</p>
+      <p class="lead" style="margin-top:1rem" data-i18n="about_p2">Dietro il bancone, una collezione di oltre cento etichette tra gin, rum, whisky e distillati d'autore, e la nostra ossessione dichiarata: il mojito, servito in ogni sua declinazione e formato, fino alla leggendaria versione XXL.</p>
+      <div class="features">
+        <div class="feature"><span class="ic">🌿</span><h4 data-i18n="f1_t">Mojito d'autore</h4><p data-i18n="f1_p">Dal classico al Black, dal Passion al Mirto: 15 varianti in formati Regular, Large, XL e XXL.</p></div>
+        <div class="feature"><span class="ic">🥃</span><h4 data-i18n="f2_t">Bottiglieria premium</h4><p data-i18n="f2_p">Gin selezionati, rum Diplomático, whisky rari e mezcal per gli intenditori.</p></div>
+        <div class="feature"><span class="ic">🎭</span><h4 data-i18n="f3_t">Atmosfera speakeasy</h4><p data-i18n="f3_p">Salottini privati, luci soffuse e velluti: l'angolo più intimo di Cagliari.</p></div>
+        <div class="feature"><span class="ic">🍹</span><h4 data-i18n="f4_t">Anche analcolici</h4><p data-i18n="f4_p">Una carta di mocktail freschi e ricercati per chi non beve alcol.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MENU ================= -->
+<section class="section" id="menu">
+  <div class="wrap">
+    <div class="menu-head reveal">
+      <span class="eyebrow" data-i18n="menu_eyebrow">La Carta</span>
+      <h2 class="section-title" data-i18n="menu_title">Il nostro <em>Menù</em></h2>
+      <p class="lead" data-i18n="menu_sub">Oltre cento proposte tra cocktail, mojito, long drink e distillati. Usa i filtri o cerca il tuo drink preferito.</p>
+    </div>
+  </div>
+  <div class="menu-tools">
+    <div class="wrap">
+      <div class="tabs" id="tabs">
+        <a class="tab" href="#cat-aperitivi" data-it="Aperitivi &amp; Pre-Dinner" data-en="Aperitifs &amp; Pre-Dinner">Aperitivi &amp; Pre-Dinner</a>
+        <a class="tab" href="#cat-afterdinner" data-it="After Dinner" data-en="After Dinner">After Dinner</a>
+        <a class="tab" href="#cat-mojito" data-it="Mojito Selection &amp; Smashed" data-en="Mojito Selection &amp; Smashed">Mojito Selection &amp; Smashed</a>
+        <a class="tab" href="#cat-longdrink" data-it="Long Drink &amp; Classici" data-en="Long Drinks &amp; Classics">Long Drink &amp; Classici</a>
+        <a class="tab" href="#cat-analcolici" data-it="Analcolici · Mocktail" data-en="Alcohol-free · Mocktails">Analcolici · Mocktail</a>
+        <a class="tab" href="#cat-gin" data-it="Gin" data-en="Gin">Gin</a>
+        <a class="tab" href="#cat-vodka" data-it="Vodka" data-en="Vodka">Vodka</a>
+        <a class="tab" href="#cat-tequila" data-it="Tequila &amp; Mezcal" data-en="Tequila &amp; Mezcal">Tequila &amp; Mezcal</a>
+        <a class="tab" href="#cat-bollicine" data-it="Bollicine &amp; Champagne" data-en="Sparkling &amp; Champagne">Bollicine &amp; Champagne</a>
+        <a class="tab" href="#cat-soft" data-it="Bibite, Birre &amp; Caffè" data-en="Soft Drinks, Beer &amp; Coffee">Bibite, Birre &amp; Caffè</a>
+      </div>
+      <div class="search-row">
+        <label class="search-box">
+          <span class="ic">🔍</span>
+          <input type="text" id="search" placeholder="Cerca un drink…" data-i18n-ph="search_ph">
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div id="menuOutput">
+      <div class="menu-cat" id="cat-aperitivi"><div class="menu-cat-head"><h3 data-it="Aperitivi &amp; Pre-Dinner" data-en="Aperitifs &amp; Pre-Dinner">Aperitivi &amp; Pre-Dinner</h3><span class="line"></span></div><div class="menu-grid"><div class="menu-item" data-s="aperol soda  "><div class="mi-left"><div class="mi-name">Aperol Soda</div></div><div class="mi-price">4</div></div><div class="menu-item" data-s="bitter analcolico  "><div class="mi-left"><div class="mi-name">Bitter Analcolico</div></div><div class="mi-price">4</div></div><div class="menu-item" data-s="crodino  "><div class="mi-left"><div class="mi-name">Crodino</div></div><div class="mi-price">4</div></div><div class="menu-item" data-s="campari soda  "><div class="mi-left"><div class="mi-name">Campari Soda</div></div><div class="mi-price">4</div></div><div class="menu-item" data-s="cocktail san pellegrino  "><div class="mi-left"><div class="mi-name">Cocktail San Pellegrino</div></div><div class="mi-price">4</div></div><div class="menu-item" data-s="americano vermouth rosso, bitter campari, soda red vermouth, bitter campari, soda water"><div class="mi-left"><div class="mi-name">Americano</div><div class="mi-ing" data-it="vermouth rosso, bitter Campari, soda" data-en="red vermouth, bitter Campari, soda water">vermouth rosso, bitter Campari, soda</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="aperol sour aperol, succo di limone, zucchero liquido aperol, fresh lemon juice, sugar"><div class="mi-left"><div class="mi-name">Aperol Sour</div><div class="mi-ing" data-it="Aperol, succo di limone, zucchero liquido" data-en="Aperol, fresh lemon juice, sugar">Aperol, succo di limone, zucchero liquido</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="campari sour bitter campari, succo di limone, zucchero liquido bitter campari, fresh lemon juice, sugar"><div class="mi-left"><div class="mi-name">Campari Sour</div><div class="mi-ing" data-it="bitter Campari, succo di limone, zucchero liquido" data-en="bitter Campari, fresh lemon juice, sugar">bitter Campari, succo di limone, zucchero liquido</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="bellini prosecco, purea di pesca sparkling wine, peach purée"><div class="mi-left"><div class="mi-name">Bellini</div><div class="mi-ing" data-it="prosecco, purea di pesca" data-en="sparkling wine, peach purée">prosecco, purea di pesca</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="rossini prosecco, purea di fragole sparkling wine, strawberry purée"><div class="mi-left"><div class="mi-name">Rossini</div><div class="mi-ing" data-it="prosecco, purea di fragole" data-en="sparkling wine, strawberry purée">prosecco, purea di fragole</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="bronx vermouth rosso, vermouth dry, gin, succo d'arancia red vermouth, dry vermouth, gin, orange juice"><div class="mi-left"><div class="mi-name">Bronx</div><div class="mi-ing" data-it="vermouth rosso, vermouth dry, gin, succo d'arancia" data-en="red vermouth, dry vermouth, gin, orange juice">vermouth rosso, vermouth dry, gin, succo d'arancia</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="manhattan vermouth rosso, rye whisky, angostura red vermouth, rye whisky, angostura"><div class="mi-left"><div class="mi-name">Manhattan</div><div class="mi-ing" data-it="vermouth rosso, rye whisky, angostura" data-en="red vermouth, rye whisky, angostura">vermouth rosso, rye whisky, angostura</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="rob roy vermouth rosso, scotch whisky, angostura red vermouth, scotch whisky, angostura"><div class="mi-left"><div class="mi-name">Rob Roy</div><div class="mi-ing" data-it="vermouth rosso, scotch whisky, angostura" data-en="red vermouth, scotch whisky, angostura">vermouth rosso, scotch whisky, angostura</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="kir prosecco, crème de cassis sparkling wine, crème de cassis"><div class="mi-left"><div class="mi-name">Kir</div><div class="mi-ing" data-it="prosecco, crème de cassis" data-en="sparkling wine, crème de cassis">prosecco, crème de cassis</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="negroni vermouth rosso, gin, bitter campari red vermouth, gin, bitter campari"><div class="mi-left"><div class="mi-name">Negroni</div><div class="mi-ing" data-it="vermouth rosso, gin, bitter Campari" data-en="red vermouth, gin, bitter Campari">vermouth rosso, gin, bitter Campari</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="negroski vermouth rosso, vodka, bitter campari red vermouth, vodka, bitter campari"><div class="mi-left"><div class="mi-name">Negroski</div><div class="mi-ing" data-it="vermouth rosso, vodka, bitter Campari" data-en="red vermouth, vodka, bitter Campari">vermouth rosso, vodka, bitter Campari</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="negroni sbagliato vermouth rosso, bitter campari, prosecco red vermouth, bitter campari, sparkling wine"><div class="mi-left"><div class="mi-name">Negroni Sbagliato</div><div class="mi-ing" data-it="vermouth rosso, bitter Campari, prosecco" data-en="red vermouth, bitter Campari, sparkling wine">vermouth rosso, bitter Campari, prosecco</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="garibaldi bitter campari, succo d'arancia bitter campari, orange juice"><div class="mi-left"><div class="mi-name">Garibaldi</div><div class="mi-ing" data-it="bitter Campari, succo d'arancia" data-en="bitter Campari, orange juice">bitter Campari, succo d'arancia</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="martini dry vermouth dry, gin dry vermouth, gin"><div class="mi-left"><div class="mi-name">Martini Dry</div><div class="mi-ing" data-it="vermouth dry, gin" data-en="dry vermouth, gin">vermouth dry, gin</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="vesper martini vermouth dry, vodka, gin, lillet blanc dry vermouth, vodka, gin, lillet blanc"><div class="mi-left"><div class="mi-name">Vesper Martini</div><div class="mi-ing" data-it="vermouth dry, vodka, gin, Lillet Blanc" data-en="dry vermouth, vodka, gin, Lillet Blanc">vermouth dry, vodka, gin, Lillet Blanc</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="vodka martini vermouth dry, vodka dry vermouth, vodka"><div class="mi-left"><div class="mi-name">Vodka Martini</div><div class="mi-ing" data-it="vermouth dry, vodka" data-en="dry vermouth, vodka">vermouth dry, vodka</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="milano-torino punt e mes, bitter campari punt e mes, bitter campari"><div class="mi-left"><div class="mi-name">Milano-Torino</div><div class="mi-ing" data-it="Punt e Mes, bitter Campari" data-en="Punt e Mes, bitter Campari">Punt e Mes, bitter Campari</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="martini royale vermouth bianco, prosecco, succo di lime, soda white vermouth, sparkling wine, lime juice, soda"><div class="mi-left"><div class="mi-name">Martini Royale</div><div class="mi-ing" data-it="vermouth bianco, prosecco, succo di lime, soda" data-en="white vermouth, sparkling wine, lime juice, soda">vermouth bianco, prosecco, succo di lime, soda</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="spritz aperol o bitter campari, prosecco, soda aperol or bitter campari, sparkling wine, soda"><div class="mi-left"><div class="mi-name">Spritz</div><div class="mi-ing" data-it="Aperol o bitter Campari, prosecco, soda" data-en="Aperol or bitter Campari, sparkling wine, soda">Aperol o bitter Campari, prosecco, soda</div></div><div class="mi-price">7</div></div><div class="menu-item" data-s="spritz pestato lime, arancio, zucchero di canna, aperol, bitter campari, prosecco lime, orange, cane sugar, aperol, bitter campari, sparkling wine"><div class="mi-left"><div class="mi-name">Spritz Pestato</div><div class="mi-ing" data-it="lime, arancio, zucchero di canna, Aperol, bitter Campari, prosecco" data-en="lime, orange, cane sugar, Aperol, bitter Campari, sparkling wine">lime, arancio, zucchero di canna, Aperol, bitter Campari, prosecco</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="hugo prosecco, liquore al sambuco, succo di lime, menta fresca sparkling wine, elderflower, lime juice, mint, soda"><div class="mi-left"><div class="mi-name">Hugo</div><div class="mi-ing" data-it="prosecco, liquore al sambuco, succo di lime, menta fresca" data-en="sparkling wine, elderflower, lime juice, mint, soda">prosecco, liquore al sambuco, succo di lime, menta fresca</div></div><div class="mi-price">8</div></div></div></div>
+      <div class="menu-cat" id="cat-afterdinner"><div class="menu-cat-head"><h3 data-it="After Dinner" data-en="After Dinner">After Dinner</h3><span class="line"></span></div><div class="menu-grid"><div class="menu-item" data-s="alexander crema di cacao, brandy, noce moscata, crema di latte cocoa liquor, brandy, nutmeg, milk cream"><div class="mi-left"><div class="mi-name">Alexander</div><div class="mi-ing" data-it="crema di cacao, brandy, noce moscata, crema di latte" data-en="cocoa liquor, brandy, nutmeg, milk cream">crema di cacao, brandy, noce moscata, crema di latte</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="apple martini vodka, triple sec, liquore mela verde vodka, triple sec, green apple liquor"><div class="mi-left"><div class="mi-name">Apple Martini</div><div class="mi-ing" data-it="vodka, triple sec, liquore mela verde" data-en="vodka, triple sec, green apple liquor">vodka, triple sec, liquore mela verde</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="apoteke brandy, crema di menta verde, branca menta brandy, green mint liquor, branca menta"><div class="mi-left"><div class="mi-name">Apoteke</div><div class="mi-ing" data-it="brandy, crema di menta verde, Branca Menta" data-en="brandy, green mint liquor, Branca Menta">brandy, crema di menta verde, Branca Menta</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="b52 kahlúa, baileys, grand marnier coffee liquor, irish cream, grand marnier"><div class="mi-left"><div class="mi-name">B52</div><div class="mi-ing" data-it="Kahlúa, Baileys, Grand Marnier" data-en="coffee liquor, Irish cream, Grand Marnier">Kahlúa, Baileys, Grand Marnier</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="between the sheets brandy, rum bianco, triple sec, succo di limone brandy, white rum, triple sec, lemon juice"><div class="mi-left"><div class="mi-name">Between the Sheets</div><div class="mi-ing" data-it="brandy, rum bianco, triple sec, succo di limone" data-en="brandy, white rum, triple sec, lemon juice">brandy, rum bianco, triple sec, succo di limone</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="black russian vodka, kahlúa vodka, coffee liquor"><div class="mi-left"><div class="mi-name">Black Russian</div><div class="mi-ing" data-it="vodka, Kahlúa" data-en="vodka, coffee liquor">vodka, Kahlúa</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="white russian vodka, kahlúa, crema di latte vodka, coffee liquor, milk cream"><div class="mi-left"><div class="mi-name">White Russian</div><div class="mi-ing" data-it="vodka, Kahlúa, crema di latte" data-en="vodka, coffee liquor, milk cream">vodka, Kahlúa, crema di latte</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="cosmopolitan vodka, triple sec, succo di cranberry, succo di lime vodka, triple sec, cranberry juice, lime juice"><div class="mi-left"><div class="mi-name">Cosmopolitan</div><div class="mi-ing" data-it="vodka, triple sec, succo di cranberry, succo di lime" data-en="vodka, triple sec, cranberry juice, lime juice">vodka, triple sec, succo di cranberry, succo di lime</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="french connection cognac, amaretto di saronno cognac, almond liquor"><div class="mi-left"><div class="mi-name">French Connection</div><div class="mi-ing" data-it="cognac, Amaretto di Saronno" data-en="cognac, almond liquor">cognac, Amaretto di Saronno</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="espresso martini vodka, kahlúa, caffè espresso vodka, coffee liquor, espresso"><div class="mi-left"><div class="mi-name">Espresso Martini</div><div class="mi-ing" data-it="vodka, Kahlúa, caffè espresso" data-en="vodka, coffee liquor, espresso">vodka, Kahlúa, caffè espresso</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="irish coffee whisky, caffè espresso, zucchero di canna, panna irish whisky, espresso, cane sugar, cream"><div class="mi-left"><div class="mi-name">Irish Coffee</div><div class="mi-ing" data-it="whisky, caffè espresso, zucchero di canna, panna" data-en="Irish whisky, espresso, cane sugar, cream">whisky, caffè espresso, zucchero di canna, panna</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="god father scotch whisky, amaretto di saronno scotch whisky, almond liquor"><div class="mi-left"><div class="mi-name">God Father</div><div class="mi-ing" data-it="scotch whisky, Amaretto di Saronno" data-en="scotch whisky, almond liquor">scotch whisky, Amaretto di Saronno</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="god mother vodka, amaretto di saronno vodka, almond liquor"><div class="mi-left"><div class="mi-name">God Mother</div><div class="mi-ing" data-it="vodka, Amaretto di Saronno" data-en="vodka, almond liquor">vodka, Amaretto di Saronno</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="grasshopper crema di menta verde, crema di cacao bianca, crema di latte green mint liquor, white cocoa liquor, milk cream"><div class="mi-left"><div class="mi-name">Grasshopper</div><div class="mi-ing" data-it="crema di menta verde, crema di cacao bianca, crema di latte" data-en="green mint liquor, white cocoa liquor, milk cream">crema di menta verde, crema di cacao bianca, crema di latte</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="japanese slipper midori, triple sec, succo di limone melon liquor, triple sec, lemon juice"><div class="mi-left"><div class="mi-name">Japanese Slipper</div><div class="mi-ing" data-it="Midori, triple sec, succo di limone" data-en="melon liquor, triple sec, lemon juice">Midori, triple sec, succo di limone</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="old fashioned bourbon, angostura, zucchero, soda bourbon, angostura, sugar, soda water"><div class="mi-left"><div class="mi-name">Old Fashioned</div><div class="mi-ing" data-it="bourbon, angostura, zucchero, soda" data-en="bourbon, angostura, sugar, soda water">bourbon, angostura, zucchero, soda</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="white lady gin, triple sec, succo di limone gin, triple sec, lemon juice"><div class="mi-left"><div class="mi-name">White Lady</div><div class="mi-ing" data-it="gin, triple sec, succo di limone" data-en="gin, triple sec, lemon juice">gin, triple sec, succo di limone</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="white spider vodka, crema di menta bianca vodka, white mint liquor"><div class="mi-left"><div class="mi-name">White Spider</div><div class="mi-ing" data-it="vodka, crema di menta bianca" data-en="vodka, white mint liquor">vodka, crema di menta bianca</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="rusty nail scotch whisky, drambuie scotch whisky, drambuie"><div class="mi-left"><div class="mi-name">Rusty Nail</div><div class="mi-ing" data-it="scotch whisky, Drambuie" data-en="scotch whisky, Drambuie">scotch whisky, Drambuie</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="sidecar brandy, triple sec, succo di limone brandy, triple sec, lemon juice"><div class="mi-left"><div class="mi-name">Sidecar</div><div class="mi-ing" data-it="brandy, triple sec, succo di limone" data-en="brandy, triple sec, lemon juice">brandy, triple sec, succo di limone</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="stinger brandy, crema di menta bianca brandy, white mint liquor"><div class="mi-left"><div class="mi-name">Stinger</div><div class="mi-ing" data-it="brandy, crema di menta bianca" data-en="brandy, white mint liquor">brandy, crema di menta bianca</div></div><div class="mi-price">10</div></div></div></div>
+      <div class="menu-cat" id="cat-mojito"><div class="menu-cat-head"><h3 data-it="Mojito Selection &amp; Smashed" data-en="Mojito Selection &amp; Smashed">Mojito Selection &amp; Smashed</h3><span class="line"></span></div><p class="menu-cat-note" data-it="Ogni mojito è disponibile nei formati Regular · Large · XL · XXL." data-en="Every mojito comes in Regular · Large · XL · XXL sizes.">Ogni mojito è disponibile nei formati Regular · Large · XL · XXL.</p><div class="sizes"><span class="size-chip">Regular<b>€8</b></span><span class="size-chip">Large<b>€25</b></span><span class="size-chip">XL<b>€35</b></span><span class="size-chip">XXL<b>€50</b></span></div><div class="menu-grid"><div class="menu-item" data-s="mojito rum bianco, rum scuro, lime, zucchero di canna, menta, soda white rum, dark rum, lime, sugar cane, mint, soda"><div class="mi-left"><div class="mi-name">Mojito</div><div class="mi-ing" data-it="rum bianco, rum scuro, lime, zucchero di canna, menta, soda" data-en="white rum, dark rum, lime, sugar cane, mint, soda">rum bianco, rum scuro, lime, zucchero di canna, menta, soda</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="mojito black rum bianco, rum scuro, liquore alla liquirizia, lime, menta, soda white rum, dark rum, licorice liquor, lime, mint, soda"><div class="mi-left"><div class="mi-name">Mojito Black</div><div class="mi-ing" data-it="rum bianco, rum scuro, liquore alla liquirizia, lime, menta, soda" data-en="white rum, dark rum, licorice liquor, lime, mint, soda">rum bianco, rum scuro, liquore alla liquirizia, lime, menta, soda</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="mojito passion passion fruit, lime, zucchero di canna, menta, soda passion fruit liquor, lime, sugar cane, mint, soda"><div class="mi-left"><div class="mi-name">Mojito Passion</div><div class="mi-ing" data-it="passion fruit, lime, zucchero di canna, menta, soda" data-en="passion fruit liquor, lime, sugar cane, mint, soda">passion fruit, lime, zucchero di canna, menta, soda</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="melito liquore alla mela verde, lime, zucchero di canna, menta, soda green apple liquor, lime, sugar cane, mint, soda"><div class="mi-left"><div class="mi-name">Melito</div><div class="mi-ing" data-it="liquore alla mela verde, lime, zucchero di canna, menta, soda" data-en="green apple liquor, lime, sugar cane, mint, soda">liquore alla mela verde, lime, zucchero di canna, menta, soda</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="mojito al cocco rum al cocco, lime, zucchero di canna, menta, soda coconut rum, lime, sugar cane, mint, soda"><div class="mi-left"><div class="mi-name">Mojito al Cocco</div><div class="mi-ing" data-it="rum al cocco, lime, zucchero di canna, menta, soda" data-en="coconut rum, lime, sugar cane, mint, soda">rum al cocco, lime, zucchero di canna, menta, soda</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="mojito jamaica rum bianco, rum scuro, fragole fresche, ananas, lime, menta, soda white &amp; dark rum, strawberry, pineapple, lime, mint, soda"><div class="mi-left"><div class="mi-name">Mojito Jamaica</div><div class="mi-ing" data-it="rum bianco, rum scuro, fragole fresche, ananas, lime, menta, soda" data-en="white &amp; dark rum, strawberry, pineapple, lime, mint, soda">rum bianco, rum scuro, fragole fresche, ananas, lime, menta, soda</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="mojito strawberry rum bianco, rum scuro, fragole fresche, lime, menta, soda white &amp; dark rum, strawberry, lime, mint, soda"><div class="mi-left"><div class="mi-name">Mojito Strawberry</div><div class="mi-ing" data-it="rum bianco, rum scuro, fragole fresche, lime, menta, soda" data-en="white &amp; dark rum, strawberry, lime, mint, soda">rum bianco, rum scuro, fragole fresche, lime, menta, soda</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="mojito al mirto rum bianco, rum scuro, mirto, lime, menta, soda white &amp; dark rum, myrtle liquor, lime, mint, soda"><div class="mi-left"><div class="mi-name">Mojito al Mirto</div><div class="mi-ing" data-it="rum bianco, rum scuro, mirto, lime, menta, soda" data-en="white &amp; dark rum, myrtle liquor, lime, mint, soda">rum bianco, rum scuro, mirto, lime, menta, soda</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="mojito al limoncello rum bianco, rum scuro, limoncello, lime, menta, soda white &amp; dark rum, lemon liquor, lime, mint, soda"><div class="mi-left"><div class="mi-name">Mojito al Limoncello</div><div class="mi-ing" data-it="rum bianco, rum scuro, limoncello, lime, menta, soda" data-en="white &amp; dark rum, lemon liquor, lime, mint, soda">rum bianco, rum scuro, limoncello, lime, menta, soda</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="mojito del capo amaro del capo, lime, zucchero di canna, menta, soda amaro del capo, lime, sugar cane, mint, soda"><div class="mi-left"><div class="mi-name">Mojito del Capo</div><div class="mi-ing" data-it="Amaro del Capo, lime, zucchero di canna, menta, soda" data-en="Amaro del Capo, lime, sugar cane, mint, soda">Amaro del Capo, lime, zucchero di canna, menta, soda</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="mojito montenegro montenegro, lime, zucchero di canna, menta, soda montenegro, lime, sugar cane, mint, soda"><div class="mi-left"><div class="mi-name">Mojito Montenegro</div><div class="mi-ing" data-it="Montenegro, lime, zucchero di canna, menta, soda" data-en="Montenegro, lime, sugar cane, mint, soda">Montenegro, lime, zucchero di canna, menta, soda</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="mojito russian vodka, lime, zucchero di canna, menta, soda vodka, lime, sugar cane, mint, soda"><div class="mi-left"><div class="mi-name">Mojito Russian</div><div class="mi-ing" data-it="vodka, lime, zucchero di canna, menta, soda" data-en="vodka, lime, sugar cane, mint, soda">vodka, lime, zucchero di canna, menta, soda</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="mojito zen rum bianco, rum scuro, lime, menta, zenzero, ginger beer white &amp; dark rum, lime, mint, ginger, ginger beer"><div class="mi-left"><div class="mi-name">Mojito Zen</div><div class="mi-ing" data-it="rum bianco, rum scuro, lime, menta, zenzero, ginger beer" data-en="white &amp; dark rum, lime, mint, ginger, ginger beer">rum bianco, rum scuro, lime, menta, zenzero, ginger beer</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="caipiroska vodka, lime, zucchero di canna vodka, lime, sugar cane"><div class="mi-left"><div class="mi-name">Caipiroska</div><div class="mi-ing" data-it="vodka, lime, zucchero di canna" data-en="vodka, lime, sugar cane">vodka, lime, zucchero di canna</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="caipirinha cachaça, lime, zucchero di canna cachaça, lime, sugar cane"><div class="mi-left"><div class="mi-name">Caipirinha</div><div class="mi-ing" data-it="cachaça, lime, zucchero di canna" data-en="cachaça, lime, sugar cane">cachaça, lime, zucchero di canna</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="super caipiroska vodka, lime, mix di frutta, zucchero di canna vodka, lime, fruit mix, sugar cane"><div class="mi-left"><div class="mi-name">Super Caipiroska</div><div class="mi-ing" data-it="vodka, lime, mix di frutta, zucchero di canna" data-en="vodka, lime, fruit mix, sugar cane">vodka, lime, mix di frutta, zucchero di canna</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="cuba libre rum scuro, cola, lime, zucchero di canna dark rum, coke, lime, sugar cane"><div class="mi-left"><div class="mi-name">Cuba Libre</div><div class="mi-ing" data-it="rum scuro, cola, lime, zucchero di canna" data-en="dark rum, coke, lime, sugar cane">rum scuro, cola, lime, zucchero di canna</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="rum cooler rum scuro, lime, arancia, zucchero di canna, ginger ale dark rum, lime, orange, sugar cane, ginger ale"><div class="mi-left"><div class="mi-name">Rum Cooler</div><div class="mi-ing" data-it="rum scuro, lime, arancia, zucchero di canna, ginger ale" data-en="dark rum, lime, orange, sugar cane, ginger ale">rum scuro, lime, arancia, zucchero di canna, ginger ale</div></div><div class="mi-price">8</div></div></div></div>
+      <div class="menu-cat" id="cat-longdrink"><div class="menu-cat-head"><h3 data-it="Long Drink &amp; Classici" data-en="Long Drinks &amp; Classics">Long Drink &amp; Classici</h3><span class="line"></span></div><div class="menu-grid"><div class="menu-item" data-s="angelo azzurro vodka, blu curaçao, limonata vodka, blue curaçao, lemonade"><div class="mi-left"><div class="mi-name">Angelo Azzurro</div><div class="mi-ing" data-it="vodka, blu curaçao, limonata" data-en="vodka, blue curaçao, lemonade">vodka, blu curaçao, limonata</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="aviation gin, liquore alla violetta, succo di lime, soda, maraschino gin, crème de violette, lime juice, soda, maraschino"><div class="mi-left"><div class="mi-name">Aviation</div><div class="mi-ing" data-it="gin, liquore alla violetta, succo di lime, soda, maraschino" data-en="gin, crème de violette, lime juice, soda, maraschino">gin, liquore alla violetta, succo di lime, soda, maraschino</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="bloody mary vodka, succo di pomodoro, limone, tabasco, worcester, sale al sedano, pepe vodka, tomato juice, lemon, tabasco, worcester, celery salt, pepper"><div class="mi-left"><div class="mi-name">Bloody Mary</div><div class="mi-ing" data-it="vodka, succo di pomodoro, limone, tabasco, worcester, sale al sedano, pepe" data-en="vodka, tomato juice, lemon, tabasco, worcester, celery salt, pepper">vodka, succo di pomodoro, limone, tabasco, worcester, sale al sedano, pepe</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="blu lagoon vodka, gin, blu curaçao, limonata vodka, gin, blue curaçao, lemonade"><div class="mi-left"><div class="mi-name">Blu Lagoon</div><div class="mi-ing" data-it="vodka, gin, blu curaçao, limonata" data-en="vodka, gin, blue curaçao, lemonade">vodka, gin, blu curaçao, limonata</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="daiquiri rum bianco, succo di limone, zucchero liquido white rum, lemon juice, sugar syrup"><div class="mi-left"><div class="mi-name">Daiquiri</div><div class="mi-ing" data-it="rum bianco, succo di limone, zucchero liquido" data-en="white rum, lemon juice, sugar syrup">rum bianco, succo di limone, zucchero liquido</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="gin fizz gin, succo di limone, zucchero liquido, soda gin, lemon juice, sugar syrup, soda"><div class="mi-left"><div class="mi-name">Gin Fizz</div><div class="mi-ing" data-it="gin, succo di limone, zucchero liquido, soda" data-en="gin, lemon juice, sugar syrup, soda">gin, succo di limone, zucchero liquido, soda</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="green jamaica midori, crème de banane, cocco, succo di ananas melon liquor, banana liquor, coconut, pineapple juice"><div class="mi-left"><div class="mi-name">Green Jamaica</div><div class="mi-ing" data-it="Midori, crème de banane, cocco, succo di ananas" data-en="melon liquor, banana liquor, coconut, pineapple juice">Midori, crème de banane, cocco, succo di ananas</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="japan iced tea gin, vodka, rum bianco, midori, succo di lime, limonata gin, vodka, white rum, melon liquor, lime juice, lemonade"><div class="mi-left"><div class="mi-name">Japan Iced Tea</div><div class="mi-ing" data-it="gin, vodka, rum bianco, Midori, succo di lime, limonata" data-en="gin, vodka, white rum, melon liquor, lime juice, lemonade">gin, vodka, rum bianco, Midori, succo di lime, limonata</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="long island iced tea gin, vodka, rum bianco, triple sec, succo di limone, cola gin, vodka, white rum, triple sec, lemon juice, coke"><div class="mi-left"><div class="mi-name">Long Island Iced Tea</div><div class="mi-ing" data-it="gin, vodka, rum bianco, triple sec, succo di limone, cola" data-en="gin, vodka, white rum, triple sec, lemon juice, coke">gin, vodka, rum bianco, triple sec, succo di limone, cola</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="long beach iced tea gin, vodka, vodka alla pesca, rum bianco, limone, cranberry gin, vodka, peach vodka, white rum, lemon, cranberry"><div class="mi-left"><div class="mi-name">Long Beach Iced Tea</div><div class="mi-ing" data-it="gin, vodka, vodka alla pesca, rum bianco, limone, cranberry" data-en="gin, vodka, peach vodka, white rum, lemon, cranberry">gin, vodka, vodka alla pesca, rum bianco, limone, cranberry</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="miami iced tea vodka, vodka al melone, vodka alla pesca, blu curaçao, limonata vodka, melon vodka, peach vodka, blue curaçao, lemonade"><div class="mi-left"><div class="mi-name">Miami Iced Tea</div><div class="mi-ing" data-it="vodka, vodka al melone, vodka alla pesca, blu curaçao, limonata" data-en="vodka, melon vodka, peach vodka, blue curaçao, lemonade">vodka, vodka al melone, vodka alla pesca, blu curaçao, limonata</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="margarita tequila, triple sec, succo di limone tequila, triple sec, lemon juice"><div class="mi-left"><div class="mi-name">Margarita</div><div class="mi-ing" data-it="tequila, triple sec, succo di limone" data-en="tequila, triple sec, lemon juice">tequila, triple sec, succo di limone</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="mint julep whisky, menta fresca, zucchero di canna bourbon whisky, fresh mint, cane sugar"><div class="mi-left"><div class="mi-name">Mint Julep</div><div class="mi-ing" data-it="whisky, menta fresca, zucchero di canna" data-en="bourbon whisky, fresh mint, cane sugar">whisky, menta fresca, zucchero di canna</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="mai tai rum bianco, orange curaçao, orzata, succo di limone, top di rum scuro white rum, orange curaçao, almond syrup, lemon juice, dark rum"><div class="mi-left"><div class="mi-name">Mai Tai</div><div class="mi-ing" data-it="rum bianco, orange curaçao, orzata, succo di limone, top di rum scuro" data-en="white rum, orange curaçao, almond syrup, lemon juice, dark rum">rum bianco, orange curaçao, orzata, succo di limone, top di rum scuro</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="moscow mule vodka, succo di lime, ginger beer vodka, lime juice, ginger beer"><div class="mi-left"><div class="mi-name">Moscow Mule</div><div class="mi-ing" data-it="vodka, succo di lime, ginger beer" data-en="vodka, lime juice, ginger beer">vodka, succo di lime, ginger beer</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="london mule gin, succo di lime, ginger beer gin, lime juice, ginger beer"><div class="mi-left"><div class="mi-name">London Mule</div><div class="mi-ing" data-it="gin, succo di lime, ginger beer" data-en="gin, lime juice, ginger beer">gin, succo di lime, ginger beer</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="dark and stormy rum scuro, ginger beer dark rum, ginger beer"><div class="mi-left"><div class="mi-name">Dark and Stormy</div><div class="mi-ing" data-it="rum scuro, ginger beer" data-en="dark rum, ginger beer">rum scuro, ginger beer</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="sex on the beach vodka, peach tree, succo d'arancia, succo di cranberry vodka, peach liquor, orange juice, cranberry juice"><div class="mi-left"><div class="mi-name">Sex on the Beach</div><div class="mi-ing" data-it="vodka, peach tree, succo d'arancia, succo di cranberry" data-en="vodka, peach liquor, orange juice, cranberry juice">vodka, peach tree, succo d'arancia, succo di cranberry</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="rum cola rum scuro, cola dark rum, coke"><div class="mi-left"><div class="mi-name">Rum Cola</div><div class="mi-ing" data-it="rum scuro, cola" data-en="dark rum, coke">rum scuro, cola</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="paloma tequila, succo di lime, pompelmo rosa tequila, lime juice, pink grapefruit"><div class="mi-left"><div class="mi-name">Paloma</div><div class="mi-ing" data-it="tequila, succo di lime, pompelmo rosa" data-en="tequila, lime juice, pink grapefruit">tequila, succo di lime, pompelmo rosa</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="porno star martini vodka, liquore alla vaniglia, passion fruit, succo di lime, shot di champagne vodka, vanilla liquor, passion fruit, lime juice, champagne shot"><div class="mi-left"><div class="mi-name">Porno Star Martini</div><div class="mi-ing" data-it="vodka, liquore alla vaniglia, passion fruit, succo di lime, shot di champagne" data-en="vodka, vanilla liquor, passion fruit, lime juice, champagne shot">vodka, liquore alla vaniglia, passion fruit, succo di lime, shot di champagne</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="piña colada rum bianco, sciroppo di cocco, succo di ananas, panna white rum, coconut syrup, pineapple juice, cream"><div class="mi-left"><div class="mi-name">Piña Colada</div><div class="mi-ing" data-it="rum bianco, sciroppo di cocco, succo di ananas, panna" data-en="white rum, coconut syrup, pineapple juice, cream">rum bianco, sciroppo di cocco, succo di ananas, panna</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="tequila sunrise tequila, succo d'arancia, granatina tequila, orange juice, grenadine"><div class="mi-left"><div class="mi-name">Tequila Sunrise</div><div class="mi-ing" data-it="tequila, succo d'arancia, granatina" data-en="tequila, orange juice, grenadine">tequila, succo d'arancia, granatina</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="vodka red bull vodka, red bull vodka, red bull"><div class="mi-left"><div class="mi-name">Vodka Red Bull</div><div class="mi-ing" data-it="vodka, Red Bull" data-en="vodka, Red Bull">vodka, Red Bull</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="vodka sour vodka, succo di limone, zucchero liquido vodka, lemon juice, sugar syrup"><div class="mi-left"><div class="mi-name">Vodka Sour</div><div class="mi-ing" data-it="vodka, succo di limone, zucchero liquido" data-en="vodka, lemon juice, sugar syrup">vodka, succo di limone, zucchero liquido</div></div><div class="mi-price">8</div></div></div></div>
+      <div class="menu-cat" id="cat-analcolici"><div class="menu-cat-head"><h3 data-it="Analcolici · Mocktail" data-en="Alcohol-free · Mocktails">Analcolici · Mocktail</h3><span class="line"></span></div><div class="menu-grid"><div class="menu-item" data-s="strawberry colada lime, zucchero di canna, purea di fragola, succo di ananas lime, cane sugar, strawberry purée, pineapple juice"><div class="mi-left"><div class="mi-name">Strawberry Colada</div><div class="mi-ing" data-it="lime, zucchero di canna, purea di fragola, succo di ananas" data-en="lime, cane sugar, strawberry purée, pineapple juice">lime, zucchero di canna, purea di fragola, succo di ananas</div></div><div class="mi-price">7</div></div><div class="menu-item" data-s="esotic lime, zucchero di canna, frutta varia, purea di fragola, succo di ananas lime, cane sugar, mixed fruit, strawberry purée, pineapple juice"><div class="mi-left"><div class="mi-name">Esotic</div><div class="mi-ing" data-it="lime, zucchero di canna, frutta varia, purea di fragola, succo di ananas" data-en="lime, cane sugar, mixed fruit, strawberry purée, pineapple juice">lime, zucchero di canna, frutta varia, purea di fragola, succo di ananas</div></div><div class="mi-price">7</div></div><div class="menu-item" data-s="virgin colada sciroppo di cocco, succo di ananas, panna coconut syrup, pineapple juice, cream"><div class="mi-left"><div class="mi-name">Virgin Colada</div><div class="mi-ing" data-it="sciroppo di cocco, succo di ananas, panna" data-en="coconut syrup, pineapple juice, cream">sciroppo di cocco, succo di ananas, panna</div></div><div class="mi-price">7</div></div><div class="menu-item" data-s="virgin mary succo di pomodoro, limone, tabasco, worcester, sale di sedano, pepe tomato juice, lemon, tabasco, worcester, celery salt, pepper"><div class="mi-left"><div class="mi-name">Virgin Mary</div><div class="mi-ing" data-it="succo di pomodoro, limone, tabasco, worcester, sale di sedano, pepe" data-en="tomato juice, lemon, tabasco, worcester, celery salt, pepper">succo di pomodoro, limone, tabasco, worcester, sale di sedano, pepe</div></div><div class="mi-price">7</div></div><div class="menu-item" data-s="florida succo d'arancia, succo di pompelmo, granatina orange juice, grapefruit juice, grenadine"><div class="mi-left"><div class="mi-name">Florida</div><div class="mi-ing" data-it="succo d'arancia, succo di pompelmo, granatina" data-en="orange juice, grapefruit juice, grenadine">succo d'arancia, succo di pompelmo, granatina</div></div><div class="mi-price">7</div></div><div class="menu-item" data-s="sunrise succo d'arancia, granatina orange juice, grenadine"><div class="mi-left"><div class="mi-name">Sunrise</div><div class="mi-ing" data-it="succo d'arancia, granatina" data-en="orange juice, grenadine">succo d'arancia, granatina</div></div><div class="mi-price">7</div></div><div class="menu-item" data-s="golden sunset succo di pompelmo, succo di limone, granatina, zucchero liquido grapefruit juice, lemon juice, grenadine, sugar syrup"><div class="mi-left"><div class="mi-name">Golden Sunset</div><div class="mi-ing" data-it="succo di pompelmo, succo di limone, granatina, zucchero liquido" data-en="grapefruit juice, lemon juice, grenadine, sugar syrup">succo di pompelmo, succo di limone, granatina, zucchero liquido</div></div><div class="mi-price">7</div></div><div class="menu-item" data-s="shirley temple ginger ale, granatina ginger ale, grenadine"><div class="mi-left"><div class="mi-name">Shirley Temple</div><div class="mi-ing" data-it="ginger ale, granatina" data-en="ginger ale, grenadine">ginger ale, granatina</div></div><div class="mi-price">7</div></div></div></div>
+      <div class="menu-cat" id="cat-gin"><div class="menu-cat-head"><h3 data-it="Gin" data-en="Gin">Gin</h3><span class="line"></span></div><p class="menu-cat-note" data-it="Selezione servita liscia o in tonic. Chiedi la tua tonica preferita." data-en="Served neat or as a G&amp;T. Ask for your favourite tonic.">Selezione servita liscia o in tonic. Chiedi la tua tonica preferita.</p><div class="menu-grid"><div class="menu-item" data-s="bombay sapphire inghilterra england"><div class="mi-left"><div class="mi-name">Bombay Sapphire</div><div class="mi-ing" data-it="Inghilterra" data-en="England">Inghilterra</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="bombay star inghilterra england"><div class="mi-left"><div class="mi-name">Bombay Star</div><div class="mi-ing" data-it="Inghilterra" data-en="England">Inghilterra</div></div><div class="mi-price">12</div></div><div class="menu-item" data-s="tanqueray inghilterra england"><div class="mi-left"><div class="mi-name">Tanqueray</div><div class="mi-ing" data-it="Inghilterra" data-en="England">Inghilterra</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="tanqueray ten inghilterra england"><div class="mi-left"><div class="mi-name">Tanqueray Ten</div><div class="mi-ing" data-it="Inghilterra" data-en="England">Inghilterra</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="beefeater 24 inghilterra england"><div class="mi-left"><div class="mi-name">Beefeater 24</div><div class="mi-ing" data-it="Inghilterra" data-en="England">Inghilterra</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="hendrick's scozia scotland"><div class="mi-left"><div class="mi-name">Hendrick's</div><div class="mi-ing" data-it="Scozia" data-en="Scotland">Scozia</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="hendrick's midsummer solstice scozia scotland"><div class="mi-left"><div class="mi-name">Hendrick's Midsummer Solstice</div><div class="mi-ing" data-it="Scozia" data-en="Scotland">Scozia</div></div><div class="mi-price">12</div></div><div class="menu-item" data-s="hendrick's lunar scozia scotland"><div class="mi-left"><div class="mi-name">Hendrick's Lunar</div><div class="mi-ing" data-it="Scozia" data-en="Scotland">Scozia</div></div><div class="mi-price">12</div></div><div class="menu-item" data-s="hendrick's orbium scozia scotland"><div class="mi-left"><div class="mi-name">Hendrick's Orbium</div><div class="mi-ing" data-it="Scozia" data-en="Scotland">Scozia</div></div><div class="mi-price">12</div></div><div class="menu-item" data-s="hendrick's neptunia scozia scotland"><div class="mi-left"><div class="mi-name">Hendrick's Neptunia</div><div class="mi-ing" data-it="Scozia" data-en="Scotland">Scozia</div></div><div class="mi-price">12</div></div><div class="menu-item" data-s="nordés spagna spain"><div class="mi-left"><div class="mi-name">Nordés</div><div class="mi-ing" data-it="Spagna" data-en="Spain">Spagna</div></div><div class="mi-price">12</div></div><div class="menu-item" data-s="gin vine francia france"><div class="mi-left"><div class="mi-name">Gin Vine</div><div class="mi-ing" data-it="Francia" data-en="France">Francia</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="london n°3 inghilterra england"><div class="mi-left"><div class="mi-name">London N°3</div><div class="mi-ing" data-it="Inghilterra" data-en="England">Inghilterra</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="gin mare spagna spain"><div class="mi-left"><div class="mi-name">Gin Mare</div><div class="mi-ing" data-it="Spagna" data-en="Spain">Spagna</div></div><div class="mi-price">12</div></div><div class="menu-item" data-s="gin mare capri spagna spain"><div class="mi-left"><div class="mi-name">Gin Mare Capri</div><div class="mi-ing" data-it="Spagna" data-en="Spain">Spagna</div></div><div class="mi-price">15</div></div><div class="menu-item" data-s="cubical spagna spain"><div class="mi-left"><div class="mi-name">Cubical</div><div class="mi-ing" data-it="Spagna" data-en="Spain">Spagna</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="roku gin giappone japan"><div class="mi-left"><div class="mi-name">Roku Gin</div><div class="mi-ing" data-it="Giappone" data-en="Japan">Giappone</div></div><div class="mi-price">12</div></div><div class="menu-item" data-s="monkey 47 germania germany"><div class="mi-left"><div class="mi-name">Monkey 47</div><div class="mi-ing" data-it="Germania" data-en="Germany">Germania</div></div><div class="mi-price">15</div></div><div class="menu-item" data-s="gin row spagna spain"><div class="mi-left"><div class="mi-name">Gin Row</div><div class="mi-ing" data-it="Spagna" data-en="Spain">Spagna</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="oxley inghilterra england"><div class="mi-left"><div class="mi-name">Oxley</div><div class="mi-ing" data-it="Inghilterra" data-en="England">Inghilterra</div></div><div class="mi-price">12</div></div><div class="menu-item" data-s="elephant gin cocoa germania germany"><div class="mi-left"><div class="mi-name">Elephant Gin Cocoa</div><div class="mi-ing" data-it="Germania" data-en="Germany">Germania</div></div><div class="mi-price">12</div></div><div class="menu-item" data-s="elephant navy germania germany"><div class="mi-left"><div class="mi-name">Elephant Navy</div><div class="mi-ing" data-it="Germania" data-en="Germany">Germania</div></div><div class="mi-price">12</div></div><div class="menu-item" data-s="elephant african explorer germania germany"><div class="mi-left"><div class="mi-name">Elephant African Explorer</div><div class="mi-ing" data-it="Germania" data-en="Germany">Germania</div></div><div class="mi-price">15</div></div><div class="menu-item" data-s="martin miller's inghilterra england"><div class="mi-left"><div class="mi-name">Martin Miller's</div><div class="mi-ing" data-it="Inghilterra" data-en="England">Inghilterra</div></div><div class="mi-price">12</div></div><div class="menu-item" data-s="bulldog inghilterra england"><div class="mi-left"><div class="mi-name">Bulldog</div><div class="mi-ing" data-it="Inghilterra" data-en="England">Inghilterra</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="citadelle francia france"><div class="mi-left"><div class="mi-name">Citadelle</div><div class="mi-ing" data-it="Francia" data-en="France">Francia</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="occitan gin italia italy"><div class="mi-left"><div class="mi-name">Occitan Gin</div><div class="mi-ing" data-it="Italia" data-en="Italy">Italia</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="marconi 46 italia italy"><div class="mi-left"><div class="mi-name">Marconi 46</div><div class="mi-ing" data-it="Italia" data-en="Italy">Italia</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="solo gin sardegna sardinia"><div class="mi-left"><div class="mi-name">Solo Gin</div><div class="mi-ing" data-it="Sardegna" data-en="Sardinia">Sardegna</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="malfy pompelmo italia italy"><div class="mi-left"><div class="mi-name">Malfy Pompelmo</div><div class="mi-ing" data-it="Italia" data-en="Italy">Italia</div></div><div class="mi-price">12</div></div><div class="menu-item" data-s="malfy limone italia italy"><div class="mi-left"><div class="mi-name">Malfy Limone</div><div class="mi-ing" data-it="Italia" data-en="Italy">Italia</div></div><div class="mi-price">12</div></div><div class="menu-item" data-s="malfy arancia rossa italia italy"><div class="mi-left"><div class="mi-name">Malfy Arancia Rossa</div><div class="mi-ing" data-it="Italia" data-en="Italy">Italia</div></div><div class="mi-price">12</div></div><div class="menu-item" data-s="portofino italia italy"><div class="mi-left"><div class="mi-name">Portofino</div><div class="mi-ing" data-it="Italia" data-en="Italy">Italia</div></div><div class="mi-price">15</div></div><div class="menu-item" data-s="professore monsieur &amp; madame italia italy"><div class="mi-left"><div class="mi-name">Professore Monsieur &amp; Madame</div><div class="mi-ing" data-it="Italia" data-en="Italy">Italia</div></div><div class="mi-price">12</div></div><div class="menu-item" data-s="professore croccodile italia italy"><div class="mi-left"><div class="mi-name">Professore Croccodile</div><div class="mi-ing" data-it="Italia" data-en="Italy">Italia</div></div><div class="mi-price">15</div></div></div></div>
+      <div class="menu-cat" id="cat-vodka"><div class="menu-cat-head"><h3 data-it="Vodka" data-en="Vodka">Vodka</h3><span class="line"></span></div><div class="menu-grid"><div class="menu-item" data-s="stolichnaya  "><div class="mi-left"><div class="mi-name">Stolichnaya</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="stolichnaya elite  "><div class="mi-left"><div class="mi-name">Stolichnaya Elite</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="grey goose  "><div class="mi-left"><div class="mi-name">Grey Goose</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="belvedere intense  "><div class="mi-left"><div class="mi-name">Belvedere Intense</div></div><div class="mi-price">12</div></div><div class="menu-item" data-s="belvedere  "><div class="mi-left"><div class="mi-name">Belvedere</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="chopin  "><div class="mi-left"><div class="mi-name">Chopin</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="potocki  "><div class="mi-left"><div class="mi-name">Potocki</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="beluga export  "><div class="mi-left"><div class="mi-name">Beluga Export</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="beluga gold line  "><div class="mi-left"><div class="mi-name">Beluga Gold Line</div></div><div class="mi-price">12</div></div><div class="menu-item" data-s="beluga allure  "><div class="mi-left"><div class="mi-name">Beluga Allure</div></div><div class="mi-price">15</div></div><div class="menu-item" data-s="beluga transatlantic  "><div class="mi-left"><div class="mi-name">Beluga Transatlantic</div></div><div class="mi-price">15</div></div><div class="menu-item" data-s="beluga celebration  "><div class="mi-left"><div class="mi-name">Beluga Celebration</div></div><div class="mi-price">12</div></div><div class="menu-item" data-s="zubrowka  "><div class="mi-left"><div class="mi-name">Zubrowka</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="snow leopard  "><div class="mi-left"><div class="mi-name">Snow Leopard</div></div><div class="mi-price">10</div></div></div></div>
+      <div class="menu-cat" id="cat-tequila"><div class="menu-cat-head"><h3 data-it="Tequila &amp; Mezcal" data-en="Tequila &amp; Mezcal">Tequila &amp; Mezcal</h3><span class="line"></span></div><div class="menu-grid"><div class="menu-item" data-s="josé cuervo  "><div class="mi-left"><div class="mi-name">José Cuervo</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="josé cuervo reposado  "><div class="mi-left"><div class="mi-name">José Cuervo Reposado</div></div><div class="mi-price">8</div></div><div class="menu-item" data-s="patrón silver  "><div class="mi-left"><div class="mi-name">Patrón Silver</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="patrón reposado  "><div class="mi-left"><div class="mi-name">Patrón Reposado</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="patrón café xo  "><div class="mi-left"><div class="mi-name">Patrón Café XO</div></div><div class="mi-price">15</div></div><div class="menu-item" data-s="don julio añejo  "><div class="mi-left"><div class="mi-name">Don Julio Añejo</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="don julio reposado  "><div class="mi-left"><div class="mi-name">Don Julio Reposado</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="don julio blanco  "><div class="mi-left"><div class="mi-name">Don Julio Blanco</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="don julio 1942  "><div class="mi-left"><div class="mi-name">Don Julio 1942</div></div><div class="mi-price">25–50</div></div><div class="menu-item" data-s="clase azul  "><div class="mi-left"><div class="mi-name">Clase Azul</div></div><div class="mi-price">25–50</div></div><div class="menu-item" data-s="cazadores  "><div class="mi-left"><div class="mi-name">Cazadores</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="400 conejos mezcal  "><div class="mi-left"><div class="mi-name">400 Conejos Mezcal</div></div><div class="mi-price">12</div></div><div class="menu-item" data-s="montelobos mezcal  "><div class="mi-left"><div class="mi-name">Montelobos Mezcal</div></div><div class="mi-price">12</div></div><div class="menu-item" data-s="don anastacio reposado  "><div class="mi-left"><div class="mi-name">Don Anastacio Reposado</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="altos tequila  "><div class="mi-left"><div class="mi-name">Altos Tequila</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="don fulano  "><div class="mi-left"><div class="mi-name">Don Fulano</div></div><div class="mi-price">10</div></div><div class="menu-item" data-s="espolòn  "><div class="mi-left"><div class="mi-name">Espolòn</div></div><div class="mi-price">10</div></div></div></div>
+      <div class="menu-cat" id="cat-bollicine"><div class="menu-cat-head"><h3 data-it="Bollicine &amp; Champagne" data-en="Sparkling &amp; Champagne">Bollicine &amp; Champagne</h3><span class="line"></span></div><p class="menu-cat-note" data-it="Prezzo al calice e alla bottiglia dove indicato." data-en="Price per glass and per bottle where shown.">Prezzo al calice e alla bottiglia dove indicato.</p><div class="menu-grid"><div class="menu-item" data-s="valdo  "><div class="mi-left"><div class="mi-name">Valdo</div></div><div class="mi-price">5–30</div></div><div class="menu-item" data-s="ferrari  "><div class="mi-left"><div class="mi-name">Ferrari</div></div><div class="mi-price">7–40</div></div><div class="menu-item" data-s="ferrari maximum  "><div class="mi-left"><div class="mi-name">Ferrari Maximum</div></div><div class="mi-price">60</div></div><div class="menu-item" data-s="bellavista  "><div class="mi-left"><div class="mi-name">Bellavista</div></div><div class="mi-price">9–60</div></div><div class="menu-item" data-s="veuve clicquot  "><div class="mi-left"><div class="mi-name">Veuve Clicquot</div></div><div class="mi-price">110</div></div><div class="menu-item" data-s="moët &amp; chandon  "><div class="mi-left"><div class="mi-name">Moët &amp; Chandon</div></div><div class="mi-price">110</div></div><div class="menu-item" data-s="laurent-perrier  "><div class="mi-left"><div class="mi-name">Laurent-Perrier</div></div><div class="mi-price">90</div></div><div class="menu-item" data-s="dom pérignon  "><div class="mi-left"><div class="mi-name">Dom Pérignon</div></div><div class="mi-price">400</div></div><div class="menu-item" data-s="cristal  "><div class="mi-left"><div class="mi-name">Cristal</div></div><div class="mi-price">450</div></div><div class="menu-item" data-s="ruinart blanc de blancs  "><div class="mi-left"><div class="mi-name">Ruinart Blanc de Blancs</div></div><div class="mi-price">150</div></div><div class="menu-item" data-s="ruinart brut  "><div class="mi-left"><div class="mi-name">Ruinart Brut</div></div><div class="mi-price">150</div></div><div class="menu-item" data-s="ruinart rosé  "><div class="mi-left"><div class="mi-name">Ruinart Rosé</div></div><div class="mi-price">180</div></div><div class="menu-item" data-s="krug  "><div class="mi-left"><div class="mi-name">Krug</div></div><div class="mi-price">450</div></div></div></div>
+      <div class="menu-cat" id="cat-soft"><div class="menu-cat-head"><h3 data-it="Bibite, Birre &amp; Caffè" data-en="Soft Drinks, Beer &amp; Coffee">Bibite, Birre &amp; Caffè</h3><span class="line"></span></div><div class="menu-grid"><div class="menu-item" data-s="bibite &amp; soft drink coca cola, coca cola zero, limonata, tonica, ginger ale, tè pesca, tè limone coke, coke zero, lemonade, tonic, ginger ale, peach/lemon tea"><div class="mi-left"><div class="mi-name">Bibite &amp; Soft Drink</div><div class="mi-ing" data-it="Coca Cola, Coca Cola Zero, limonata, tonica, ginger ale, tè pesca, tè limone" data-en="Coke, Coke Zero, lemonade, tonic, ginger ale, peach/lemon tea">Coca Cola, Coca Cola Zero, limonata, tonica, ginger ale, tè pesca, tè limone</div></div><div class="mi-price">4–5</div></div><div class="menu-item" data-s="tonic selection indian, pompelmo rosa, mediterranea, angostura, ginger beer indian, pink grapefruit, mediterranean, angostura, ginger beer"><div class="mi-left"><div class="mi-name">Tonic Selection</div><div class="mi-ing" data-it="Indian, pompelmo rosa, mediterranea, angostura, ginger beer" data-en="Indian, pink grapefruit, mediterranean, angostura, ginger beer">Indian, pompelmo rosa, mediterranea, angostura, ginger beer</div></div><div class="mi-price">4–5</div></div><div class="menu-item" data-s="succhi di frutta pesca, pera, arancio, ananas, banana, pompelmo, pomodoro, cranberry peach, pear, orange, pineapple, banana, grapefruit, tomato, cranberry"><div class="mi-left"><div class="mi-name">Succhi di Frutta</div><div class="mi-ing" data-it="pesca, pera, arancio, ananas, banana, pompelmo, pomodoro, cranberry" data-en="peach, pear, orange, pineapple, banana, grapefruit, tomato, cranberry">pesca, pera, arancio, ananas, banana, pompelmo, pomodoro, cranberry</div></div><div class="mi-price">4–5</div></div><div class="menu-item" data-s="red bull  "><div class="mi-left"><div class="mi-name">Red Bull</div></div><div class="mi-price">4</div></div><div class="menu-item" data-s="birre 33cl ichnusa, corona, heineken, beck's, pilsner ichnusa, corona, heineken, beck's, pilsner"><div class="mi-left"><div class="mi-name">Birre 33cl</div><div class="mi-ing" data-it="Ichnusa, Corona, Heineken, Beck's, Pilsner" data-en="Ichnusa, Corona, Heineken, Beck's, Pilsner">Ichnusa, Corona, Heineken, Beck's, Pilsner</div></div><div class="mi-price">4</div></div><div class="menu-item" data-s="amari &amp; creme ampia selezione al banco wide selection at the bar"><div class="mi-left"><div class="mi-name">Amari &amp; Creme</div><div class="mi-ing" data-it="ampia selezione al banco" data-en="wide selection at the bar">ampia selezione al banco</div></div><div class="mi-price">4–5</div></div><div class="menu-item" data-s="espresso / decaffeinato  "><div class="mi-left"><div class="mi-name">Espresso / Decaffeinato</div></div><div class="mi-price">2</div></div><div class="menu-item" data-s="caffè shakerato  "><div class="mi-left"><div class="mi-name">Caffè Shakerato</div></div><div class="mi-price">4</div></div><div class="menu-item" data-s="caffè shakerato baileys  "><div class="mi-left"><div class="mi-name">Caffè Shakerato Baileys</div></div><div class="mi-price">6</div></div><div class="menu-item" data-s="caffè corretto  "><div class="mi-left"><div class="mi-name">Caffè Corretto</div></div><div class="mi-price">5</div></div></div></div>
+    </div>
+    <p class="menu-note-foot" data-i18n="menu_foot">I prezzi sono espressi in euro. La disponibilità delle etichette può variare. Menù indicativo — chiedi al nostro staff le proposte del giorno.</p>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="menu-head reveal" style="text-align:left;margin-bottom:2.6rem">
+      <span class="eyebrow" data-i18n="contact_eyebrow">Vieni a Trovarci</span>
+      <h2 class="section-title" data-i18n="contact_title">Contatti & <em>Mappa</em></h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card reveal">
+        <div class="info-row">
+          <span class="ic">📍</span>
+          <div><h4 data-i18n="c_addr">Indirizzo</h4>
+          <a href="https://www.google.com/maps/search/?api=1&query=Mojito+Cocktail+Bar+Salita+di+Santa+Chiara+25+Cagliari" target="_blank" rel="noopener">Salita di Santa Chiara 25<br>09124 Cagliari (CA)</a></div>
+        </div>
+        <div class="info-row">
+          <span class="ic">🕑</span>
+          <div><h4 data-i18n="c_hours">Orari</h4>
+          <p data-i18n="c_hours_v">Tutti i giorni 18:30 – 02:00<br>Venerdì e Sabato fino alle 03:00</p></div>
+        </div>
+        <div class="info-row">
+          <span class="ic">📞</span>
+          <div><h4 data-i18n="c_phone">Telefono</h4>
+          <a href="tel:+390708564040">070 8564040</a></div>
+        </div>
+        <div class="info-row">
+          <span class="ic">✉️</span>
+          <div><h4 data-i18n="c_social">Seguici</h4>
+          <a href="https://www.instagram.com/mojito_cagliari/" target="_blank" rel="noopener">@mojito_cagliari</a></div>
+        </div>
+        <div class="socials">
+          <a href="https://www.instagram.com/mojito_cagliari/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.05 1.8.25 2.2.42.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.17.4.37 1 .42 2.2.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.05 1.2-.25 1.8-.42 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.17-1 .37-2.2.42-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.05-1.8-.25-2.2-.42-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.17-.4-.37-1-.42-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.05-1.2.25-1.8.42-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.17 1-.37 2.2-.42C8.4 2.2 8.8 2.2 12 2.2m0 1.8c-3.1 0-3.5 0-4.7.07-.9.04-1.4.2-1.7.32-.43.17-.74.37-1.06.7-.32.32-.52.63-.7 1.06-.12.3-.28.8-.32 1.7C3.24 8.5 3.24 8.9 3.24 12s0 3.5.07 4.7c.04.9.2 1.4.32 1.7.17.43.37.74.7 1.06.32.32.63.52 1.06.7.3.12.8.28 1.7.32 1.2.06 1.6.07 4.7.07s3.5 0 4.7-.07c.9-.04 1.4-.2 1.7-.32.43-.17.74-.37 1.06-.7.32-.32.52-.63.7-1.06.12-.3.28-.8.32-1.7.06-1.2.07-1.6.07-4.7s0-3.5-.07-4.7c-.04-.9-.2-1.4-.32-1.7-.17-.43-.37-.74-.7-1.06-.32-.32-.63-.52-1.06-.7-.3-.12-.8-.28-1.7-.32C15.5 4 15.1 4 12 4m0 3.06A4.94 4.94 0 1 0 12 17a4.94 4.94 0 0 0 0-9.88m0 8.14A3.2 3.2 0 1 1 12 8.8a3.2 3.2 0 0 1 0 6.4m6.28-8.34a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0"/></svg>
+          </a>
+          <a href="https://www.facebook.com/Mojitococktailcagliari/" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.5-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12"/></svg>
+          </a>
+          <a href="tel:+390708564040" aria-label="Telefono">
+            <svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="map-wrap reveal">
+        <iframe title="Mappa Mojito Cocktail Bar Cagliari" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=Salita%20di%20Santa%20Chiara%2025,%2009124%20Cagliari&output=embed"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <a href="#home" class="brand"><img src="logo.jpeg" alt="Mojito" class="logo-img"><span>Mojito</span></a>
+    <div class="foot-links">
+      <a href="#about" data-i18n="nav_about">Il Locale</a>
+      <a href="#menu" data-i18n="nav_menu">Menù</a>
+      <a href="#contact" data-i18n="nav_contact">Contatti</a>
+      <a href="https://www.instagram.com/mojito_cagliari/" target="_blank" rel="noopener">Instagram</a>
+    </div>
+    <p class="foot-note">
+      © <span id="year"></span> Mojito Cocktail Bar · Salita di Santa Chiara 25, Cagliari · Tel. 070 8564040<br>
+      <span data-i18n="foot_disclaimer">Bevi responsabilmente. Alcolici vietati ai minori di 18 anni. Dati di contatto da confermare con il locale.</span>
+    </p>
+  </div>
+</footer>
+
+<script>
+/* =================== I18N =================== */
+const I18N = {
+  it:{
+    nav_about:"Il Locale", nav_menu:"Menù", nav_contact:"Contatti",
+    hero_pre:"Cocktail Bar · Cagliari",
+    hero_tag:"Un rifugio scuro e intimo nel cuore di Cagliari, dove ogni distillato racconta una storia e ogni mojito è un rituale.",
+    hero_cta_menu:"Scopri il Menù", hero_cta_book:"Dove Siamo",
+    hero_hours:"Ogni sera dalle 18:30", hero_drinks:"100+ cocktail", scroll:"Scorri", badge:"Cocktail",
+    about_eyebrow:"Il Locale", about_title:"Dove la notte<br><em>si fa rituale</em>",
+    about_p1:"Il Mojito è un cocktail bar in stile speakeasy nel centro storico di Cagliari, a due passi da Piazza Yenne. Pareti in pietra, luci basse, tende di velluto verde e poltrone in pelle: un'atmosfera raccolta pensata per chi cerca un buon bere lontano dalla folla.",
+    about_p2:"Dietro il bancone, una collezione di oltre cento etichette tra gin, rum, whisky e distillati d'autore, e la nostra ossessione dichiarata: il mojito, servito in ogni sua declinazione e formato, fino alla leggendaria versione XXL.",
+    f1_t:"Mojito d'autore", f1_p:"Dal classico al Black, dal Passion al Mirto: 15 varianti in formati Regular, Large, XL e XXL.",
+    f2_t:"Bottiglieria premium", f2_p:"Gin selezionati, rum Diplomático, whisky rari e mezcal per gli intenditori.",
+    f3_t:"Atmosfera speakeasy", f3_p:"Salottini privati, luci soffuse e velluti: l'angolo più intimo di Cagliari.",
+    f4_t:"Anche analcolici", f4_p:"Una carta di mocktail freschi e ricercati per chi non beve alcol.",
+    menu_eyebrow:"La Carta", menu_title:"Il nostro <em>Menù</em>",
+    menu_sub:"Oltre cento proposte tra cocktail, mojito, long drink e distillati. Usa i filtri o cerca il tuo drink preferito.",
+    search_ph:"Cerca un drink…",
+    menu_foot:"I prezzi sono espressi in euro. La disponibilità delle etichette può variare. Menù indicativo — chiedi al nostro staff le proposte del giorno.",
+    contact_eyebrow:"Vieni a Trovarci", contact_title:"Contatti & <em>Mappa</em>",
+    c_addr:"Indirizzo", c_hours:"Orari", c_hours_v:"Tutti i giorni 18:30 – 02:00<br>Venerdì e Sabato fino alle 03:00",
+    c_phone:"Telefono", c_social:"Seguici",
+    foot_disclaimer:"Bevi responsabilmente. Alcolici vietati ai minori di 18 anni. Dati di contatto da confermare con il locale.",
+    no_res:"Nessun drink trovato", all:"Tutti"
+  },
+  en:{
+    nav_about:"The Venue", nav_menu:"Menu", nav_contact:"Contact",
+    hero_pre:"Cocktail Bar · Cagliari",
+    hero_tag:"A dark, intimate hideaway in the heart of Cagliari, where every spirit tells a story and every mojito is a ritual.",
+    hero_cta_menu:"Explore the Menu", hero_cta_book:"Find Us",
+    hero_hours:"Every night from 6:30 pm", hero_drinks:"100+ cocktails", scroll:"Scroll", badge:"Cocktails",
+    about_eyebrow:"The Venue", about_title:"Where the night<br><em>becomes a ritual</em>",
+    about_p1:"Mojito is a speakeasy-style cocktail bar in Cagliari's old town, steps from Piazza Yenne. Stone walls, low lights, green velvet curtains and leather armchairs: an intimate atmosphere for those who seek great drinks away from the crowd.",
+    about_p2:"Behind the bar, a collection of over a hundred labels of gin, rum, whisky and craft spirits — and our declared obsession: the mojito, served in every variation and size, up to the legendary XXL.",
+    f1_t:"Signature Mojitos", f1_p:"From the classic to Black, from Passion to Myrtle: 15 variations in Regular, Large, XL and XXL.",
+    f2_t:"Premium bottle list", f2_p:"Selected gins, Diplomático rum, rare whiskies and mezcal for connoisseurs.",
+    f3_t:"Speakeasy vibe", f3_p:"Private lounges, soft lights and velvet: the most intimate corner in Cagliari.",
+    f4_t:"Alcohol-free too", f4_p:"A menu of fresh, refined mocktails for those who don't drink alcohol.",
+    menu_eyebrow:"The List", menu_title:"Our <em>Menu</em>",
+    menu_sub:"Over a hundred cocktails, mojitos, long drinks and spirits. Use the filters or search for your favourite.",
+    search_ph:"Search a drink…",
+    menu_foot:"Prices are in euro. Label availability may vary. Indicative menu — ask our staff for today's specials.",
+    contact_eyebrow:"Come & Visit", contact_title:"Contact & <em>Map</em>",
+    c_addr:"Address", c_hours:"Opening hours", c_hours_v:"Daily 6:30 pm – 2:00 am<br>Friday & Saturday until 3:00 am",
+    c_phone:"Phone", c_social:"Follow us",
+    foot_disclaimer:"Please drink responsibly. Alcohol is forbidden to under 18s. Contact details to be confirmed with the venue.",
+    no_res:"No drinks found", all:"All"
+  }
+};
+
+/* Il menù è HTML statico nella pagina; il JS lo potenzia soltanto. */
+
+let LANG = "it";
+const $ = s => document.querySelector(s);
+
+/* Lingua: testi UI + testi bilingue del menù (categorie, note, ingredienti, chip) */
+function applyLang(){
+  document.documentElement.lang = LANG;
+  const t = I18N[LANG] || I18N.it;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const k = el.getAttribute("data-i18n");
+    if(t[k]!==undefined) el.innerHTML = t[k];
+  });
+  document.querySelectorAll("[data-i18n-ph]").forEach(el=>{
+    const k = el.getAttribute("data-i18n-ph");
+    if(t[k]!==undefined) el.placeholder = t[k];
+  });
+  const attr = LANG==="en" ? "data-en" : "data-it";
+  document.querySelectorAll("[data-it]").forEach(el=>{
+    const v = el.getAttribute(attr);
+    if(v!==null) el.textContent = v;
+  });
+  document.querySelectorAll(".lang-toggle button").forEach(b=>{
+    b.classList.toggle("active", b.dataset.lang===LANG);
+  });
+}
+document.querySelectorAll(".lang-toggle button").forEach(b=>{
+  b.onclick = ()=>{ LANG=b.dataset.lang; applyLang(); };
+});
+
+/* Ricerca: filtra le voci statiche e nasconde le categorie vuote */
+const search = $("#search");
+if(search){
+  search.addEventListener("input", ()=>{
+    const q = search.value.trim().toLowerCase();
+    document.querySelectorAll(".menu-cat").forEach(cat=>{
+      let visible = 0;
+      cat.querySelectorAll(".menu-item").forEach(it=>{
+        const ok = !q || (it.getAttribute("data-s")||"").indexOf(q) !== -1;
+        it.style.display = ok ? "" : "none";
+        if(ok) visible++;
+      });
+      cat.style.display = visible ? "" : "none";
+    });
+  });
+}
+
+/* Nav: header ombreggiato allo scroll; il drawer è CSS, qui lo chiudo al click su un link */
+const nav = $("#nav");
+addEventListener("scroll", ()=> nav.classList.toggle("scrolled", scrollY>40));
+const navToggle = $("#navToggle");
+document.querySelectorAll("#navLinks a").forEach(a=>{
+  a.addEventListener("click", ()=>{ if(navToggle) navToggle.checked = false; });
+});
+
+/* Evidenzia il chip della categoria mentre si scorre il menù */
+const chips = [].slice.call(document.querySelectorAll("#tabs .tab"));
+const cats = [].slice.call(document.querySelectorAll(".menu-cat"));
+if("IntersectionObserver" in window && cats.length){
+  const spy = new IntersectionObserver((ents)=>{
+    ents.forEach(en=>{
+      if(en.isIntersecting){
+        const id = "#"+en.target.id;
+        chips.forEach(c=> c.classList.toggle("active", c.getAttribute("href")===id));
+      }
+    });
+  },{rootMargin:"-45% 0px -50% 0px"});
+  cats.forEach(c=>spy.observe(c));
+}
+
+/* Reveal on scroll con rete di sicurezza */
+const revealAll = ()=>document.querySelectorAll(".reveal:not(.in)").forEach(el=>el.classList.add("in"));
+if("IntersectionObserver" in window){
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target);} });
+  },{threshold:.08});
+  document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+  setTimeout(revealAll,2000);
+}else{ revealAll(); }
+
+$("#year").textContent = new Date().getFullYear();
+
+/* init */
+applyLang();
+</script>
+</body>
+</html>
