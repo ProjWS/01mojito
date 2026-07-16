@@ -96,6 +96,11 @@ body::after{
   background-size:3px 3px;
 }
 
+/* ---------- icone (SVG inline, stile Lucide) ---------- */
+.ico{width:1.1em;height:1.1em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.16em;flex-shrink:0}
+.hero-meta .ico{color:var(--gold)}
+.map-cta .ico{width:1em;height:1em}
+
 /* ---------- helpers ---------- */
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,48px)}
 .eyebrow{
@@ -355,9 +360,9 @@ footer .brand{justify-content:center;margin-bottom:1rem}
       <a href="#contact" class="btn btn-ghost" data-i18n="hero_cta_book">Dove Siamo</a>
     </div>
     <div class="hero-meta">
-      <span>📍 <b>Salita di Santa Chiara 25</b></span>
-      <span>🕑 <b data-i18n="hero_hours">Ogni sera dalle 18:30</b></span>
-      <span>🍸 <b data-i18n="hero_drinks">100+ cocktail</b></span>
+      <span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> <b>Salita di Santa Chiara 25</b></span>
+      <span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> <b data-i18n="hero_hours">Ogni sera dalle 18:30</b></span>
+      <span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 22h8M12 11v11M19 3l-7 8-7-8Z"/></svg> <b data-i18n="hero_drinks">100+ cocktail</b></span>
     </div>
   </div>
   <div class="scroll-hint"><span data-i18n="scroll">Scorri</span><i></i></div>
@@ -378,10 +383,10 @@ footer .brand{justify-content:center;margin-bottom:1rem}
       <p class="lead" data-i18n="about_p1">Il Mojito è un cocktail bar in stile speakeasy nel centro storico di Cagliari, a due passi da Piazza Yenne. Pareti in pietra, luci basse, tende di velluto verde e poltrone in pelle: un'atmosfera raccolta pensata per chi cerca un buon bere lontano dalla folla.</p>
       <p class="lead" style="margin-top:1rem" data-i18n="about_p2">Dietro il bancone, una collezione di oltre cento etichette tra gin, rum, whisky e distillati d'autore, e la nostra ossessione dichiarata: il mojito, servito in ogni sua declinazione e formato, fino alla leggendaria versione XXL.</p>
       <div class="features">
-        <div class="feature"><span class="ic">🌿</span><h4 data-i18n="f1_t">Mojito d'autore</h4><p data-i18n="f1_p">Dal classico al Black, dal Passion al Mirto: 15 varianti in formati Regular, Large, XL e XXL.</p></div>
-        <div class="feature"><span class="ic">🥃</span><h4 data-i18n="f2_t">Bottiglieria premium</h4><p data-i18n="f2_p">Gin selezionati, rum Diplomático, whisky rari e mezcal per gli intenditori.</p></div>
-        <div class="feature"><span class="ic">🎭</span><h4 data-i18n="f3_t">Atmosfera speakeasy</h4><p data-i18n="f3_p">Salottini privati, luci soffuse e velluti: l'angolo più intimo di Cagliari.</p></div>
-        <div class="feature"><span class="ic">🍹</span><h4 data-i18n="f4_t">Anche analcolici</h4><p data-i18n="f4_p">Una carta di mocktail freschi e ricercati per chi non beve alcol.</p></div>
+        <div class="feature"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></span><h4 data-i18n="f1_t">Mojito d'autore</h4><p data-i18n="f1_p">Dal classico al Black, dal Passion al Mirto: 15 varianti in formati Regular, Large, XL e XXL.</p></div>
+        <div class="feature"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14l-1.81 17.21A2 2 0 0 1 15.2 22H8.8a2 2 0 0 1-2-1.79L5 3Z"/><path d="M6.5 12h11"/></svg></span><h4 data-i18n="f2_t">Bottiglieria premium</h4><p data-i18n="f2_p">Gin selezionati, rum Diplomático, whisky rari e mezcal per gli intenditori.</p></div>
+        <div class="feature"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span><h4 data-i18n="f3_t">Atmosfera speakeasy</h4><p data-i18n="f3_p">Salottini privati, luci soffuse e velluti: l'angolo più intimo di Cagliari.</p></div>
+        <div class="feature"><span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 8 1.75 12.28a2 2 0 0 0 2 1.72h4.54a2 2 0 0 0 2-1.72L18 8"/><path d="M5 8h14"/><path d="m12 8 1-6h2"/></svg></span><h4 data-i18n="f4_t">Anche analcolici</h4><p data-i18n="f4_p">Una carta di mocktail freschi e ricercati per chi non beve alcol.</p></div>
       </div>
     </div>
   </div>
@@ -412,7 +417,7 @@ footer .brand{justify-content:center;margin-bottom:1rem}
       </div>
       <div class="search-row">
         <label class="search-box">
-          <span class="ic">🔍</span>
+          <span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
           <input type="text" id="search" placeholder="Cerca un drink…" data-i18n-ph="search_ph">
         </label>
       </div>
@@ -445,22 +450,22 @@ footer .brand{justify-content:center;margin-bottom:1rem}
     <div class="contact-grid">
       <div class="contact-card reveal">
         <div class="info-row">
-          <span class="ic">📍</span>
+          <span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
           <div><h4 data-i18n="c_addr">Indirizzo</h4>
           <a href="https://www.google.com/maps/search/?api=1&query=Mojito+Cocktail+Bar+Salita+di+Santa+Chiara+25+Cagliari" target="_blank" rel="noopener">Salita di Santa Chiara 25<br>09124 Cagliari (CA)</a></div>
         </div>
         <div class="info-row">
-          <span class="ic">🕑</span>
+          <span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
           <div><h4 data-i18n="c_hours">Orari</h4>
           <p data-i18n="c_hours_v">Tutti i giorni 18:30 - 02:00<br>Venerdì e Sabato fino alle 03:00</p></div>
         </div>
         <div class="info-row">
-          <span class="ic">📞</span>
+          <span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg></span>
           <div><h4 data-i18n="c_phone">Telefono</h4>
           <a href="tel:+390708564040">070 8564040</a></div>
         </div>
         <div class="info-row">
-          <span class="ic">✉️</span>
+          <span class="ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/></svg></span>
           <div><h4 data-i18n="c_social">Seguici</h4>
           <a href="https://www.instagram.com/mojito_cagliari/" target="_blank" rel="noopener">@mojito_cagliari</a></div>
         </div>
@@ -480,7 +485,7 @@ footer .brand{justify-content:center;margin-bottom:1rem}
       <a class="map-wrap reveal" href="https://www.google.com/maps/search/?api=1&query=Mojito+Cocktail+Bar+Salita+di+Santa+Chiara+25+Cagliari"
          target="_blank" rel="noopener" aria-label="Apri la posizione del Mojito Cocktail Bar su Google Maps">
         <img src="map-preview.webp" alt="Mappa con la posizione del Mojito Cocktail Bar in Salita di Santa Chiara 25, Cagliari" loading="lazy">
-        <span class="map-cta" data-i18n="map_cta">📍 Apri in Google Maps</span>
+        <span class="map-cta"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span data-i18n="map_cta">Apri in Google Maps</span></span>
       </a>
     </div>
   </div>
@@ -529,7 +534,7 @@ const I18N = {
     c_phone:"Telefono", c_social:"Seguici",
     foot_disclaimer:"Bevi responsabilmente. Alcolici vietati ai minori di 18 anni. Dati di contatto da confermare con il locale.",
     no_res:"Nessun drink trovato", all:"Tutti",
-    nav_privacy:"Privacy", map_cta:"📍 Apri in Google Maps",
+    nav_privacy:"Privacy", map_cta:"Apri in Google Maps",
     show_all:"Mostra tutti", show_less:"Mostra meno"
   },
   en:{
@@ -554,7 +559,7 @@ const I18N = {
     c_phone:"Phone", c_social:"Follow us",
     foot_disclaimer:"Please drink responsibly. Alcohol is forbidden to under 18s. Contact details to be confirmed with the venue.",
     no_res:"No drinks found", all:"All",
-    nav_privacy:"Privacy", map_cta:"📍 Open in Google Maps",
+    nav_privacy:"Privacy", map_cta:"Open in Google Maps",
     show_all:"Show all", show_less:"Show less"
   }
 };
